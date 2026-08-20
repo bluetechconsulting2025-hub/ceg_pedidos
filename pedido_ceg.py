@@ -27,6 +27,13 @@ WAREHOUSE_CUSTOMERS = "BLUELOGISTICA_PRD_ENTERPRISE"
 BASE_URL = "https://mingle-ionapi.inforcloudsuite.com/BLUELOGISTICA_PRD/WM/wmwebservice_rest"
 TOKEN_URL = "https://mingle-sso.inforcloudsuite.com:443/BLUELOGISTICA_PRD/as/token.oauth2"
 
+STORER_MAP = {
+    "0040": "GNSPS",
+    "0017": "CEGRJ",
+    "0016": "CEG",
+}
+
+
 CLIENT_ID = st.secrets["CLIENT_ID"]
 CLIENT_SECRET = st.secrets["CLIENT_SECRET"]
 USERNAME = st.secrets["USERNAME"]
@@ -189,7 +196,7 @@ def parse_romaneio(texto: str) -> dict:
             quantidade = 0.0
 
         orderdetails.append({
-            "sku": tokens[0],
+            "sku": tokens[0].lstrip("0") or tokens[0],
             "descricao": descricao,
             "localizacao": localizacao,
             "openqty": quantidade,
@@ -213,11 +220,8 @@ def parse_romaneio(texto: str) -> dict:
 # UI
 # ============================
 planta = st.selectbox("Planta", list(WAREHOUSE_MAP.keys()))
-storerkey_manual = st.text_input(
-    "Storerkey (proprietário do estoque no Infor)",
-    value="",
-    help="O PDF não traz o storerkey do dono do estoque — informe manualmente.",
-)
+storerkey_auto = STORER_MAP.get(dados["sociedade_codigo"], "")
+
 
 arquivo = st.file_uploader("Envie o PDF do romaneio", type=["pdf"])
 
@@ -241,7 +245,7 @@ if arquivo:
     # receptor é usado como consigneekey (cliente final) e carriercode
     # (transportadora), já que nesse fluxo é o mesmo dado
     shipment_json = {
-        "storerkey": storerkey_manual or None,
+        "storerkey": storerkey_auto,
         "orderkey": dados["orderkey"],
         "consigneekey": dados["receptor_codigo"],
         "carriercode": dados["receptor_codigo"],
