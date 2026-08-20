@@ -219,7 +219,6 @@ STORER_MAP = {
 # UI
 # ============================
 planta = st.selectbox("Planta", list(WAREHOUSE_MAP.keys()))
-storerkey_auto = STORER_MAP.get(dados["sociedade_codigo"], "")
 
 
 arquivo = st.file_uploader("Envie o PDF do romaneio", type=["pdf"])
@@ -227,7 +226,8 @@ arquivo = st.file_uploader("Envie o PDF do romaneio", type=["pdf"])
 if arquivo:
     texto = extrair_texto(arquivo.getvalue())
     dados = parse_romaneio(texto)
-
+    storerkey_auto = STORER_MAP.get(dados["sociedade_codigo"], "")
+    
     st.subheader("Cabeçalho identificado")
     col1, col2, col3 = st.columns(3)
     col1.metric("Entrega (orderkey)", dados["orderkey"] or "—")
