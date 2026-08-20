@@ -27,13 +27,6 @@ WAREHOUSE_CUSTOMERS = "BLUELOGISTICA_PRD_ENTERPRISE"
 BASE_URL = "https://mingle-ionapi.inforcloudsuite.com/BLUELOGISTICA_PRD/WM/wmwebservice_rest"
 TOKEN_URL = "https://mingle-sso.inforcloudsuite.com:443/BLUELOGISTICA_PRD/as/token.oauth2"
 
-STORER_MAP = {
-    "0040": "GNSPS",
-    "0017": "CEGRJ",
-    "0016": "CEG",
-}
-
-
 CLIENT_ID = st.secrets["CLIENT_ID"]
 CLIENT_SECRET = st.secrets["CLIENT_SECRET"]
 USERNAME = st.secrets["USERNAME"]
@@ -214,6 +207,12 @@ def parse_romaneio(texto: str) -> dict:
         "observacao": observ.group(1).strip() if observ else None,
         "orderdetails": orderdetails,
     }
+
+STORER_MAP = {
+    "0040": "GNSPS",
+    "0017": "CEGRJ",
+    "0016": "CEG",
+}
 
 
 # ============================
