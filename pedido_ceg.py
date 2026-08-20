@@ -227,7 +227,7 @@ if arquivo:
     texto = extrair_texto(arquivo.getvalue())
     dados = parse_romaneio(texto)
     storerkey_auto = STORER_MAP.get(dados["sociedade_codigo"], "")
-    
+
     st.subheader("Cabeçalho identificado")
     col1, col2, col3 = st.columns(3)
     col1.metric("Entrega (orderkey)", dados["orderkey"] or "—")
@@ -249,20 +249,10 @@ if arquivo:
         "consigneekey": dados["receptor_codigo"],
         "carriercode": dados["receptor_codigo"],
         "orderdetails": [
-            {"sku": item["sku"], "openqty": item["openqty"], "uom": item["uom"]}
+            {"sku": item["sku"], "openqty": item["openqty"]}
             for item in dados["orderdetails"]
         ],
     }
-
-    st.subheader("JSON do Shipment")
-    st.json(shipment_json)
-
-    st.download_button(
-        "⬇️ Baixar JSON",
-        data=json.dumps(shipment_json, ensure_ascii=False, indent=2),
-        file_name=f"shipment_{dados['orderkey'] or 'romaneio'}.json",
-        mime="application/json",
-    )
 
     st.markdown("---")
     if st.button("🚀 Cadastrar receptor/transportadora e criar shipment no Infor"):
