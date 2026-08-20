@@ -278,7 +278,7 @@ if arquivo:
                     res_release = liberar_shipment(warehouse, dados["orderkey"], headers)
                     status_pedido = consultar_status_pedido(warehouse, dados["orderkey"], headers)
                     res_load = postar_load(
-                        warehouse, dados["orderkey"], storerkey_manual, dados["receptor_nome"], headers
+                        warehouse, dados["orderkey"], storerkey_auto, dados["receptor_nome"], headers
                     )
 
                 st.subheader("Resultado")
