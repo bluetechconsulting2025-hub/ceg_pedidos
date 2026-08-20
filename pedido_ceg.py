@@ -13,8 +13,8 @@ import base64
 import requests
 from io import BytesIO
 
-st.set_page_config(page_title="Leitor de Romaneio PDF", layout="wide")
-st.title("📄 Leitor de Romaneio (PDF) → Infor WMS")
+st.set_page_config(page_title="Pedidos CEG/BlUE ", layout="wide")
+st.title("Integração de pedidos - Infor WMS")
 
 # ============================
 # CONFIGURAÇÕES DO SISTEMA
