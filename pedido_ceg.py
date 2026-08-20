@@ -13,7 +13,7 @@ import base64
 import requests
 from io import BytesIO
 
-st.set_page_config(page_title="Pedidos CEG/BlUE ", layout="wide")
+st.set_page_config(page_title="Pedidos CEG/BLUE ", layout="wide")
 st.title("Integração de pedidos - Infor WMS")
 
 # ============================
