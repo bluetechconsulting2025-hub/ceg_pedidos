@@ -258,8 +258,6 @@ if arquivo:
     if st.button("🚀 Cadastrar receptor/transportadora e criar shipment no Infor"):
         if not dados["receptor_codigo"]:
             st.error("Não consegui identificar o receptor no PDF — não dá pra cadastrar.")
-        elif not storerkey_manual:
-            st.error("Informe o storerkey antes de enviar.")
         else:
             with st.spinner("Autenticando no Infor..."):
                 token = gerar_token()
